@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imprimir PDF desde el hosting sin vista previa</title>
+</head>
+<body>
+    <h1>Imprimiremos PDF DIRECTAMENTE EN LA IMPRESORA LOCAL</h1>
+    <br>
+	<button onclick="imprimir('XP-80C')">IMPRIMIR</button>
+    <script>
+        function imprimir(nombre_impresora){
+			// Estos parámetros podrían venir de cualquier lugar
+        const urlPdf = "https://demo.pse.aqpfact.pe/print/document/6e50a4bd-5d4f-4fb9-9bd8-b5c59712b4f5/ticket";
+        const url = `http://localhost:8080/url?urlPdf=${urlPdf}&impresora=${nombre_impresora}`;
+        fetch(url)
+            .then(respuesta => {
+                if (respuesta.status === 200) {
+                    alert("Impreso correctamente");
+                } else {
+                    respuesta.json()
+                        .then(mensaje => {
+                            alert("Ocurrió un error: " + mensaje);
+                        });
+                }
+            });
+		}
+    </script>
+</body>
+</html>
